@@ -1,4 +1,8 @@
 fn main() {
-    let message = "hello, foo";
-    println!("{}", message)
+    let message = if true {
+        "hello, foo"
+    } else {
+        "hello, bar"
+    };
+    println!("{}", message);
 }
