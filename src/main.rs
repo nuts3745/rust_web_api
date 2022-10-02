@@ -1,14 +1,7 @@
-fn void() {
-    
-}
-
-fn return_void() {
-    return ();
+fn add(x: i32, y: i32) -> i32 {
+    x + y
 }
 
 fn main() {
-    let a = void();
-    println!("{:?}", a);
-    let a = return_void();
-    println!("{:?}", a);
+    println!("{}", add(1, 2));
 }
