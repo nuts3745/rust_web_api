@@ -1,5 +1,5 @@
 fn main() {
-    println!("before panic!");
-    panic!("hoge");
-    println!("after panic!");
+    let input: Result<&str, &str> = Ok("test");
+    let input = input.unwrap();
+    println!("{:?}", input);
 }
