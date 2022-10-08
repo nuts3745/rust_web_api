@@ -1,22 +1,16 @@
-enum Color {
-    Red,
-    Blue,
-    Green,
-    Hex(String),
-}
-
-fn string_to_color_token(value: &str) -> Option<Color> {
-    match value {
-        "red" => Some(Color::Red),
-        "blue" => Some(Color::Blue),
-        "green" => Some(Color::Green),
-        "white" => Some(Color::Hex("f8f7f2".to_string())),
-        _ => None,
+fn add_until(start: i32, end: i32) -> i32 {
+    let mut sum = 0;
+    let mut temp = start;
+    loop {
+        sum += temp;
+        if temp == end {
+            break sum;
+        }
+        temp += 1;
     }
 }
 
 fn main() {
-    if let Some(color) = string_to_color_token("red") {
-        println!("red");
-    }
+    let result = add_until(1, 3);
+    println!("{}", result);
 }
