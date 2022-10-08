@@ -1,16 +1,18 @@
-fn hello_print(message: &str) {
-    println!("hello, {}", message);
+fn take<T>(_value: T) {
+    
 }
 
-fn print(value: i32) {
-    println!("{}", value);
+fn fizz(value: i32) -> String {
+    let result = if value % 3 == 0 {
+        String::from("fizz")
+    } else {
+        format!("{}", value)
+    };
+    let clone_result = result.clone();
+    take(clone_result);
+    result
 }
 
 fn main() {
-    let world = String::from("world");
-    hello_print(&world);
-    println!("{}", world);
-    let a = 999;
-    let b = &a;
-    print(*b);
+    println!("{}", fizz(42));
 }
