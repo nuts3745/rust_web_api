@@ -1,17 +1,15 @@
-/// xとyを足し合わせます。
-///
-/// # Examples
-///
-/// ```
-/// use chapter_01::utils::add;
-///
-/// let r = add(1, 10);
-/// assert_eq!(11, r);
-/// ```
-pub fn add(x: i32, y: i32) -> i32 {
-    x + y
+macro_rules! sum {
+    ($($x:expr),*) => {
+        {
+            let mut result = 0;
+            $(
+                result = result + $x;
+            )*
+            result
+        }
+    };
 }
 
 fn main() {
-    println!("{}", add(1, 2))
+    println!("{}", sum![1, 2, 3, 4, 5]);
 }
