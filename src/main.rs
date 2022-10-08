@@ -1,13 +1,3 @@
-fn fizz_buzz(value: i32) -> String {
-    let result = match value {
-        v if v % 15 == 0 => "fizz buzz".to_string(),
-        v if v % 5 == 0 => "buzz".to_string(),
-        v if v % 3 == 0 => "fizz".to_string(),
-        _ => value.to_string(),
-    };
-    result
-}
-
 enum Color {
     Red,
     Blue,
@@ -26,8 +16,7 @@ fn string_to_color_token(value: &str) -> Option<Color> {
 }
 
 fn main() {
-    println!("{}", fizz_buzz(1));
-    println!("{}", fizz_buzz(3));
-    println!("{}", fizz_buzz(5));
-    let result = string_to_color_token("red").unwrap();
+    if let Some(color) = string_to_color_token("red") {
+        println!("red");
+    }
 }
