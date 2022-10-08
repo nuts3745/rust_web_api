@@ -1,5 +1,5 @@
 fn main() {
-    let a = String::from("hoge");
+    let a = 100;
     let b = a;
     println!("{}", a);
 }
