@@ -1,6 +1,9 @@
-use std::fmt::{self, Display};
-use std::ops::Add;
+use std::{
+    fmt::{self, Display},
+    ops::Add,
+};
 
+#[derive(Debug, PartialEq, Eq)]
 struct Fraction(u32, u32);
 
 impl Fraction {
