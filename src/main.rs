@@ -1,18 +1,13 @@
-fn take<T>(_value: T) {
-    
+fn hello() -> &'static str {
+    "hello"
 }
 
-fn fizz(value: i32) -> String {
-    let result = if value % 3 == 0 {
-        String::from("fizz")
-    } else {
-        format!("{}", value)
-    };
-    let clone_result = result.clone();
-    take(clone_result);
-    result
+fn print_hello<'a>(name: &'a str) {
+    println!("hello, {}", name);
 }
 
 fn main() {
-    println!("{}", fizz(42));
+    let a: &'static str = "some text";
+    println!("{}", hello());
+    print_hello(a);
 }
