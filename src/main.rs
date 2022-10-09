@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 trait Area {
     fn area(&self) -> u32;
 }
@@ -32,8 +34,8 @@ impl Rectangle {
 
 fn comparison_area<T, U>(a: T, b: U) -> bool
 where
-    T: Area,
-    U: Area,
+    T: Area + Display,
+    U: Area + Display,
 {
     a.area() == b.area()
 }
