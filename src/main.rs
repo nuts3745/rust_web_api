@@ -30,7 +30,7 @@ impl Rectangle {
     }
 }
 
-fn comparison_area(a: impl Area, b: impl Area) -> bool {
+fn comparison_area<T: Area, U: Area>(a: T, b: U) -> bool {
     a.area() == b.area()
 }
 
