@@ -1,27 +1,20 @@
-use std::fs::File;
-use anyhow::{Context, Result};
-use thiserror::Error;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Error)]
-enum ApiError {
-    #[error("InternalServerError: {0}")]
-    InternalServerError(String),
-    #[error("NotFound")]
-    NotFound,
+#[derive(Serialize, Deserialize, Debug)]
+struct User {
+    name: String,
+    age: u32,
 }
 
-fn fetch_api() -> Result<(), ApiError> {
-    Err(ApiError::InternalServerError("[always_my_error]".to_string()).into())
-}
+fn main() {
+    let user = User {
+        name: String::from("sato"),
+        age: 30,
+    };
 
-fn maybe_fail() -> Result<()> {
-    let _r = fetch_api()?;
-    let filename = "hoge.txt";
-    let _f = File::open(filename).context(format!("failed to open file: {}", filename))?;
-    Ok(())
-}
+    let serialized = serde_json::to_string(&user).unwrap();
+    println!("serialized = {}", serialized);
 
-fn main() -> Result<()> {
-    let _l = maybe_fail()?;
-    Ok(())
+    let deserialized: User = serde_json::from_str(&serialized).unwrap();
+    println!("deserialized = {:?}", deserialized);
 }
