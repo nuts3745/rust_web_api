@@ -1,32 +1,27 @@
-use std::{fmt, error, fs::File};
+use std::fs::File;
+use anyhow::{Context, Result};
+use thiserror::Error;
 
-#[derive(Debug)]
+#[derive(Debug, Error)]
 enum ApiError {
+    #[error("InternalServerError: {0}")]
     InternalServerError(String),
+    #[error("NotFound")]
     NotFound,
 }
 
-impl fmt::Display for ApiError {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "[ApiError]")
-    }
-}
-
-impl error::Error for ApiError {
-    
-}
-
 fn fetch_api() -> Result<(), ApiError> {
-    Err(ApiError::InternalServerError("[always_my_error]".to_string()))
+    Err(ApiError::InternalServerError("[always_my_error]".to_string()).into())
 }
 
-fn maybe_fail() -> Result<(), Box<dyn error::Error>> {
+fn maybe_fail() -> Result<()> {
     let _r = fetch_api()?;
-    let _f = File::open("hoge.txt")?;
+    let filename = "hoge.txt";
+    let _f = File::open(filename).context(format!("failed to open file: {}", filename))?;
     Ok(())
 }
 
-fn main() -> Result<(), Box<dyn error::Error>> {
+fn main() -> Result<()> {
     let _l = maybe_fail()?;
     Ok(())
 }
