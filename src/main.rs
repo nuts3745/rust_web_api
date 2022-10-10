@@ -1,10 +1,5 @@
-async fn something() -> Result<String, String> {
-    Err("something failure...".to_string())
-}
+mod foo;
 
-#[tokio::main]
-async fn main() -> Result<(), String> {
-    let r = something().await?;
-    println!("{}", r);
-    Ok(())
+fn main() {
+    foo::bar::baz();
 }
