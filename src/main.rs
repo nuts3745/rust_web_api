@@ -1,47 +1,32 @@
-fn main() {
-    println!("{}", add(12, 21));
+use std::{fmt, error, fs::File};
+
+#[derive(Debug)]
+enum ApiError {
+    InternalServerError(String),
+    NotFound,
 }
 
-#[derive(Debug, PartialEq, Eq)]
-struct Book {
-    name: String
-}
-/// xとyを足し合わせます。
-/// 
-/// # Example
-/// 
-/// ```
-/// use chapter_02::utils::add;
-/// 
-/// let r = add(1, 10);
-/// assert_eq!(11, r);
-/// ```
-fn add(a: i32, b: i32) -> i32 {
-    a + b
+impl fmt::Display for ApiError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "[ApiError]")
+    }
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+impl error::Error for ApiError {
+    
+}
 
-    #[test]
-    fn add_test() {
-        assert_eq!(2, add(1, 1));
-    }
+fn fetch_api() -> Result<(), ApiError> {
+    Err(ApiError::InternalServerError("[always_my_error]".to_string()))
+}
 
-    #[test]
-    fn book_test() {
-        let book1 = Book {
-            name: "book name".to_string()
-        };
-        let book2 = Book {
-            name: "book name".to_string()
-        };
-        assert_eq!(book1, book2);
-    }
+fn maybe_fail() -> Result<(), Box<dyn error::Error>> {
+    let _r = fetch_api()?;
+    let _f = File::open("hoge.txt")?;
+    Ok(())
+}
 
-    #[test]
-    fn return_result_test() -> Result<(), ()> {
-        Ok(())
-    }
+fn main() -> Result<(), Box<dyn error::Error>> {
+    let _l = maybe_fail()?;
+    Ok(())
 }
