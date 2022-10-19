@@ -33,6 +33,13 @@ pub struct CreateTodo {
     text: String,
 }
 
+#[cfg(test)]
+impl CreateTodo {
+    pub fn new(text: String) -> Self {
+        Self { text: text }
+    }
+}
+
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq)]
 pub struct UpdateTodo {
     text: Option<String>,
@@ -93,10 +100,7 @@ impl TodoRepository for TodoRepositoryForMemory {
 
     fn update(&self, id: i32, payload: UpdateTodo) -> anyhow::Result<Todo> {
         let mut store = self.write_store_ref();
-        let todo = store
-            .get(&id)
-            .context(RepositoryError::NotFound(id))
-            .unwrap();
+        let todo = store.get(&id).context(RepositoryError::NotFound(id))?;
         let text = payload.text.unwrap_or(todo.text.clone());
         let completed = payload.completed.unwrap_or(todo.completed);
         let todo = Todo {
@@ -110,10 +114,7 @@ impl TodoRepository for TodoRepositoryForMemory {
 
     fn delete(&self, id: i32) -> anyhow::Result<()> {
         let mut store = self.write_store_ref();
-        store
-            .remove(&id)
-            .ok_or(RepositoryError::NotFound(id))
-            .unwrap();
+        store.remove(&id).ok_or(RepositoryError::NotFound(id))?;
         Ok(())
     }
 }
