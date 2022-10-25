@@ -145,7 +145,8 @@ mod tests {
                 "id": 1,
                 "text": "should_update_todo",
                 "completed": false
-            }"#.to_string(),
+            }"#
+            .to_string(),
         );
         let res = create_app(repository).oneshot(req).await.unwrap();
         let todo = res_to_todo(res).await;

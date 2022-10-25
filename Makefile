@@ -5,7 +5,9 @@ start:
 	docker compose up
 
 dev:
-	cargo watch -x run
+	sqlx db create
+	sqlx migrate run
+	cargo watch -x fmt -x run
 
 test:
 	cargo test
