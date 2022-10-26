@@ -4,3 +4,10 @@ https://www.shuwasystem.co.jp/book/9784798067315.html
 
 `cargo install sqlx-cli`
 `cargo install cargo-watch`
+
+`cd backend`
+`make start`
+`make dev`
+
+`cd frontend`
+`npm run dev`
