@@ -10,7 +10,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     environment:
-      POSTGRES_PASSWORD: admin
+      POSTGRES_PASSWORD: r782jRpEwTMx
       POSTGRES_USER: admin
       POSTGRES_DB: todos
       TZ: Asia/Tokyo
