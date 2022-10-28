@@ -1,20 +1,47 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import "modern-css-reset";
-import { Box, createTheme, ThemeProvider, Typography } from "@mui/material";
+import {
+    Box,
+    createTheme,
+    Stack,
+    ThemeProvider,
+    Typography,
+} from "@mui/material";
 import { NewTodoPayload, Todo } from "./types/todo";
 import TodoForm from "./components/TodoForm";
+import TodoList from "./components/TodoList";
+import { addTodoItem, getTodoItems } from "./lib/api/todo";
 
 const TodoApp: FC = () => {
     const [todos, setTodos] = useState<Todo[]>([]);
-    const createId = () => todos.length + 1;
 
     const onSubmit = async (payload: NewTodoPayload) => {
         if (!payload.text) return;
-        setTodos((prev) => [
-            { id: createId(), text: payload.text, completed: false },
-            ...prev,
-        ]);
+        await addTodoItem(payload);
+        const todos = await getTodoItems();
+        setTodos(todos);
     };
+
+    const onUpdate = (updateTodo: Todo) => {
+        setTodos(
+            todos.map((todo) => {
+                if (todo.id === updateTodo.id) {
+                    return {
+                        ...todo,
+                        ...updateTodo,
+                    };
+                }
+                return todo;
+            })
+        );
+    };
+
+    useEffect(() => {
+        (async () => {
+            const todos = await getTodoItems();
+            setTodos(todos);
+        })();
+    }, []);
 
     return (
         <>
@@ -42,7 +69,10 @@ const TodoApp: FC = () => {
                     mt: 10,
                 }}>
                 <Box maxWidth={700} width="100%">
-                    <TodoForm onSubmit={onSubmit} />
+                    <Stack spacing={5}>
+                        <TodoForm onSubmit={onSubmit} />
+                        <TodoList todos={todos} onUpdate={onUpdate} />
+                    </Stack>
                 </Box>
             </Box>
         </>

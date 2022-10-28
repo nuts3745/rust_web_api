@@ -1,3 +1,6 @@
+db:
+	docker compose exec database psql -U admin todos
+
 build:
 	docker compose build
 
