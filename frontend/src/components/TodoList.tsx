@@ -1,25 +1,27 @@
-import { Card, Checkbox, Stack, Typography } from "@mui/material";
-import React, { FC } from "react";
-import { Todo } from "../types/todo";
+import { FC } from "react";
+import type { Label, Todo, UpdateTodoPayload } from "../types/todo";
+import { Stack, Typography } from "@mui/material";
 import TodoItem from "./TodoItem";
 
 type Props = {
     todos: Todo[];
-    onUpdate: (todo: Todo) => void;
+    labels: Label[];
+    onUpdate: (todo: UpdateTodoPayload) => void;
     onDelete: (id: number) => void;
 };
 
-const TodoList: FC<Props> = (props: Props) => {
+const TodoList: FC<Props> = ({ todos, labels, onUpdate, onDelete }) => {
     return (
         <Stack spacing={2}>
-            <Typography variant="h2">Todo List</Typography>
+            <Typography variant="h2">todo list</Typography>
             <Stack spacing={2}>
-                {props.todos.map((todo) => (
+                {todos.map((todo) => (
                     <TodoItem
                         key={todo.id}
                         todo={todo}
-                        onUpdate={props.onUpdate}
-                        onDelete={props.onDelete}
+                        onUpdate={onUpdate}
+                        onDelete={onDelete}
+                        labels={labels}
                     />
                 ))}
             </Stack>
