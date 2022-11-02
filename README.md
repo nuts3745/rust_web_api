@@ -8,6 +8,9 @@ https://www.shuwasystem.co.jp/book/9784798067315.html
 `cd backend`
 `make start`
 `make dev`
+`make db`
+`make test`
+`make test-s`
 
 `cd frontend`
 `npm run dev`
